@@ -34,12 +34,6 @@
                     <label class="form-label" for="typePasswordX-2">Password</label>
                     <input name="password" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
                 </div>
-
-                <!-- Checkbox -->
-                <div class="form-check d-flex justify-content-start mb-4">
-                  <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                </div>
-
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
 
               </div>

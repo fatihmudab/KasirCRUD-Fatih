@@ -25,14 +25,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
-                            @if (Auth::user()->role == 'petugas')
-                                <a href="{{ route('penjualan-create') }}">
-                                    <button class="btn btn-sm btn-primary" style="float: right">Tambah</button>
-                                </a>
-                            @endif
-                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table">
@@ -58,19 +50,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
-                        <!-- /.card -->
-                        @if (Auth::user()->role == 'admin')
-                            <div class="card-footer">
-                                <a href="{{ route('penjualan-admin') }}" class="btn btn-sm btn-secondary"><i
-                                        class="fas fa-arrow-left"></i> Kembali</a>
-                            </div>
-                        @else
                             <div class="card-footer">
                                 <a href="{{ route('penjualan') }}" class="btn btn-sm btn-secondary"><i
                                         class="fas fa-arrow-left"></i> Kembali</a>
                             </div>
-                        @endif
                     </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

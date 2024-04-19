@@ -83,7 +83,7 @@
                         <a href="/logout"> <i class="bi bi-box-arrow-left p-2" style="color:#FFFFFF;"> Logout</i></a>
                     @else
                     <br><h4 href=""><i class="bi bi-subtract p-2"></i> Aplikasi Kasir</h4><br>
-                    <a href="/petugas" @if(request()->route()->uri == 'petugas') class='active' @endif>
+                    <a href="/dashboard" @if(request()->route()->uri == 'dashboard') class='active' @endif>
                     <i class="bi bi-house-door-fill p-2"></i> Dashboard</a>
                     <a href="/penjualan" @if(request()->route()->uri == 'penjualan') class='active' @endif><i class="bi bi-cart4 p-2"></i>Penjualan</a>
                     <a href="/produk" @if(request()->route()->uri == 'produk') class='active' @endif><i class="bi bi-box-fill p-2"></i>Produk</a>

@@ -16,4 +16,18 @@ class Penjualan extends Model
         'total_harga',
         'pelanggan_id'
     ];
+
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class);
+    }
+
+    public function detailPenjualan()
+    {
+        return $this->hasOne(DetailPenjualan::class);
+    }
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

@@ -17,4 +17,9 @@ class DetailPenjualan extends Model
         'quantity',
         'sub_total'
     ];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

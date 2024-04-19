@@ -4,8 +4,8 @@
 
 <div class="card">
         <div class="card-body">
-            <h3>Welcome, Administrator!</h3>
-            <p>Selamat datang di aplikasi kami. Terima kasih telah login.</p>
+            <h3>Selamat Datang</h3>
+            <p>Selamat datang di website kasir. Terima kasih telah login.</p>
         </div>
     </div>
 
