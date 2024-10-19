@@ -1,9 +1,24 @@
 @extends('layout.home')
 
-@section('content')
-
-<form action="{{ isset($product) ? route('produk.edit.update', $product->id) : route('produk.tambah.simpan') }}" method="post" enctype="multipart/form-data">
-        @csrf
+<form action="{{ isset($product) ? route('produk.edit.update', $product->id) : route('produk.tambah.simpan') }}"
+    method="post" enctype="multipart/form-data">
+    @csrf
+    @section('content')
+        @if (Session::get('success-pj'))
+            <div class="alert alert-primary">{{ Session::get('success-pj') }}</div>
+        @endif
+        @if (Session::get('edit-pj'))
+            <div class="alert alert-primary">{{ Session::get('edit-pj') }}</div>
+        @endif
+        @if (Session::get('add-pj'))
+            <div class="alert alert-primary">{{ Session::get('add-pj') }}</div>
+        @endif
+        @if (Session::get('status'))
+            <div class="alert alert-primary">{{ Session::get('status') }}</div>
+        @endif
+        @if (Session::get('delete-pj'))
+            <div class="alert alert-primary">{{ Session::get('delete-pj') }}</div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
@@ -35,11 +50,11 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
-                        <a href="{{ route('produk') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                        <a href="{{ route('produk') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                            Kembali</a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
 @endsection

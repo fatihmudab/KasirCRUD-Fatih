@@ -1,50 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .login-header {
+            background: #2a5298;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .login-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        .login-body {
+            padding: 20px;
+        }
+
+        .login-body h2 {
+            margin: 0 0 20px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 20px 10px 40px;
+            /* Adjust padding for space */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #2a5298;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            /* Light green background */
+            color: #155724;
+            /* Dark green text */
+            border: 1px solid #c3e6cb;
+            /* Light green border */
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            /* Light red background */
+            color: #721c24;
+            /* Dark red text */
+            border: 1px solid #f5c6cb;
+            /* Light red border */
+        }
+
+        .login-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .login-footer a {
+            color: #2a5298;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background: #1e3c72;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
+    <form class="login" method="POST" action="/login-post">
+        @csrf
 
-<form class="login"method="POST" action="/login-post">
-  @csrf
-  @if (session('status') == 'failed')
-  <div class="alert alert-danger">
-    {{ session('message') }}
-  </div>
-  @endif
-    <section class="vh-100" style="background-color: #508bfc;">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow-2-strong" style="border-radius: 1rem;">
-              <div class="card-body p-5 text-center">
+        @if (Session::get('failed'))
+            <div class="alert alert-danger">{{ Session::get('failed') }}</div>
+        @endif
 
-                <h3 class="mb-5">login</h3>
+        @if (Session::get('canAccess'))
+            <div class="alert alert-danger">{{ Session::get('canAccess') }}</div>
+        @endif
 
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="typeEmailX-2">Email</label>
-                    <input name="email" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                </div>
 
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="typePasswordX-2">Password</label>
-                    <input name="password" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-
-              </div>
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Welcome to the website</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
             </div>
-          </div>
+            <div class="login-body">
+                <h2>USER LOGIN</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input name="email" type="email" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input name="password" type="password" placeholder="Password" required>
+                </div>
+                <div class="login-footer">
+                    <label>
+                        <input type="checkbox"> Remember
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button class="login-button" type="submit">Login</button>
+            </div>
         </div>
-      </div>
-    </section>
-
+        <div class="footer">
+            Fatih Muda Bangsawan
+        </div>
+    </form>
 </body>
+
 </html>
-
-
-

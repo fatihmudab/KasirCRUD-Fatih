@@ -1,7 +1,6 @@
 @extends('layout.home')
 
 @section('content')
-
     <form action="{{ isset($user) ? route('user.edit.update', $user->id) : route('user.tambah.simpan') }}" method="post">
         @csrf
         <div class="row">
@@ -20,8 +19,11 @@
                         <div class="form-group">
                             <label for="role">Role</label>
                             <select class="form-control" id="role" name="role">
-                                <option value="administrator" {{ isset($user) && $user->role == 'administrator' ? 'selected' : '' }}>Administrator</option>
-                                <option value="petugas" {{ isset($user) && $user->role == 'petugas' ? 'selected' : '' }}>Petugas</option>
+                                <option value="administrator"
+                                    {{ isset($user) && $user->role == 'administrator' ? 'selected' : '' }}>Administrator
+                                </option>
+                                <option value="petugas" {{ isset($user) && $user->role == 'petugas' ? 'selected' : '' }}>
+                                    Petugas</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -40,6 +42,5 @@
                     </div>
                 </div>
             </div>
-        </form>
-        
+    </form>
 @endsection

@@ -1,10 +1,18 @@
 @extends('layout.home')
 
 @section('content')
-
+    @if (Session::get('sukses'))
+        <div class="alert alert-primary">{{ Session::get('sukses') }}</div>
+    @endif
+    @if (Session::get('edit'))
+        <div class="alert alert-primary">{{ Session::get('edit') }}</div>
+    @endif
+    @if (Session::get('delete'))
+        <div class="alert alert-primary">{{ Session::get('delete') }}</div>
+    @endif
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
+            <h6 class="m-0 font-weight-bold text-black">Data User</h6>
         </div>
         <div class="card-body">
             <a href="{{ route('user.tambah') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah User</a>
@@ -28,8 +36,10 @@
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
-                                    <a href="{{ route('user.hapus', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning"><i
+                                            class="fas fa-edit"></i> Edit</a>
+                                    <a href="{{ route('user.hapus', $user->id) }}" class="btn btn-danger"><i
+                                            class="fas fa-trash-alt"></i> Hapus</a>
                                 </td>
                             </tr>
                         @endforeach

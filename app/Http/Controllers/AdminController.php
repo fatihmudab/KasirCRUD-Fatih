@@ -45,7 +45,7 @@ class AdminController extends Controller
 
         User::create($data);
 
-        return redirect()->route('user')->with('succes', 'User berhasil ditambahkan.');
+        return redirect()->route('user')->with('sukses', 'User berhasil ditambahkan.');
     }
 
     public function editUser($id)
@@ -78,7 +78,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->update($data);
 
-        return redirect()->route('user')->with('success', 'Data user berhasil diperbarui.');
+        return redirect()->route('user')->with('edit', 'Data user berhasil diperbarui.');
     }
 
     public function hapusUser($id)
@@ -86,7 +86,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('user')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('user')->with('delete', 'User berhasil dihapus.');
     }
 
     public function penjualan()
@@ -138,7 +138,7 @@ class AdminController extends Controller
         }
     
         $penjualan->update(['total_harga' => $totalHarga]); // Menyimpan total harga yang telah dihitung
-        return redirect()->route('penjualan')->with('success', 'Data penjualan berhasil disimpan.');
+        return redirect()->route('penjualan')->with('success-pj', 'Data penjualan berhasil disimpan.');
     }
     
     public function detailPenjualan($id)
@@ -178,7 +178,7 @@ class AdminController extends Controller
         $product->gambar = $nama_gambar;
         $product->save();
 
-        return redirect()->route('produk')->with('success', 'Produk added successfully.');
+        return redirect()->route('produk')->with('add-pj', 'Data produk berhasil ditambahkan.');
     }
 
     public function editrPoduk($id)
@@ -201,7 +201,7 @@ class AdminController extends Controller
         $product->stok = $request->stok;
         $product->save();
 
-        return redirect()->route('produk')->with('success', 'Product updated successfully.');
+        return redirect()->route('produk')->with('edit-pj', 'Berhasil diperbarui.');
     }
 
     public function produkStokEdit($id)
@@ -233,7 +233,7 @@ class AdminController extends Controller
         $product->delete();
     
         // Redirect kembali ke halaman produk dengan pesan sukses
-        return redirect()->route('produk')->with('success', 'Product deleted successfully.');
+        return redirect()->route('produk')->with('delete-pj', 'Berhasil menghapus produk.');
     }
 
 }

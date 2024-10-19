@@ -16,23 +16,31 @@ use App\Http\Controllers\PetugasController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::middleware(['isGuest'])->group(function(){
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login-post', [AuthController::class, 'Login']);
+});
+
+
+Route::middleware('isLogin')->group(function() {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/dashboard', [PetugasController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [AdminController::class, 'indexdashboard']);
+
+Route::middleware(['isAdmin'])->group(function() {
 Route::get('/user', [AdminController::class, 'user'])->name('user');
 Route::get('user/tambah', [AdminController::class, 'tambahUser'])->name('user.tambah');
 Route::post('user/tambah', [AdminController::class, 'simpanUser'])->name('user.tambah.simpan');
 Route::get('user/edit/{id}', [AdminController::class, 'editUser'])->name('user.edit');
 Route::post('user/edit/{id}', [AdminController::class, 'updateUser'])->name('user.edit.update');
 Route::get('user/hapus/{id}', [AdminController::class, 'hapusUser'])->name('user.hapus');
+});
 
-Route::get('/dashboard', [AdminController::class, 'indexdashboard']);
 
 Route::get('/produk', [AdminController::class, 'produk'])->name('produk');
 Route::get('produk/tambah', [AdminController::class, 'tambahproduk'])->name('produk.tambah');
@@ -48,4 +56,4 @@ Route::get('penjualan/tambah', [AdminController::class, 'tambahpenjualan'])->nam
 Route::post('penjualan/tambah', [AdminController::class, 'simpanPenjualan'])->name('penjualan.tambah.simpan');
 Route::get('penjualan/detail/{id}', [AdminController::class, 'detailPenjualan'])->name('penjualan.detail');
 
-Route::get('/dashboard', [PetugasController::class, 'index'])->name('dashboard');
+});
