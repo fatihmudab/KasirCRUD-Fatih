@@ -12,6 +12,8 @@ use App\Models\Produk;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductsExport;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class AdminController extends Controller
 {
@@ -104,25 +106,25 @@ class AdminController extends Controller
     public function simpanPenjualan(Request $request)
     {
         $request->validate([
-            'nama'=> 'required',
-            'alamat'=> 'required',
-            'no_telpon'=> 'required',
-            'tanggal_penjualan'=> 'required',
-            'produk_id'=> 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'no_telpon' => 'required',
+            'tanggal_penjualan' => 'required',
+            'produk_id' => 'required',
             'quantity' => 'required',
         ]);
-    
+
         $pelanggan = Pelanggan::create([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'no_telpon' => $request->no_telpon,
-        ]);  
-        
+        ]);
+
         $penjualan = Penjualan::create([
             'pelanggan_id' => $pelanggan->id, // Menggunakan ID pelanggan yang baru saja dibuat
             'tanggal_penjualan' => $request->tanggal_penjualan,
         ]);
-    
+
         $totalHarga = 0;
         for ($i = 0; $i < count($request->produk_id); $i++) {
             $produk = Produk::findOrFail($request->produk_id[$i]);
@@ -133,14 +135,14 @@ class AdminController extends Controller
                 'quantity' => $request->quantity[$i],
                 'sub_total' => $subtotal,
             ]);
-    
+
             $totalHarga += $subtotal;
         }
-    
+
         $penjualan->update(['total_harga' => $totalHarga]); // Menyimpan total harga yang telah dihitung
         return redirect()->route('penjualan')->with('success-pj', 'Data penjualan berhasil disimpan.');
     }
-    
+
     public function detailPenjualan($id)
     {
         $penjualan = DetailPenjualan::where('penjualan_id', $id)->get();
@@ -207,8 +209,8 @@ class AdminController extends Controller
     public function produkStokEdit($id)
     {
         $stok = Produk::where('id', $id)->first();
-        return view ('admin.produk.stok-produk', ['stok' => $stok]);
-    }    
+        return view('admin.produk.stok-produk', ['stok' => $stok]);
+    }
 
     public function produkStokUpdate(Request $request, $id)
     {
@@ -225,15 +227,20 @@ class AdminController extends Controller
     {
         // Cari produk berdasarkan ID
         $product = Produk::findOrFail($id);
-    
+
         // Hapus semua detail penjualan yang terkait dengan produk ini
         DetailPenjualan::where('produk_id', $id)->delete();
-    
-        // Hapus produk itu sendiri
+
         $product->delete();
-    
-        // Redirect kembali ke halaman produk dengan pesan sukses
+
         return redirect()->route('produk')->with('delete-pj', 'Berhasil menghapus produk.');
     }
 
+    public function cetakPDF()
+    {
+        $penjualan = Penjualan::with('produk')->get();
+
+        $pdf = Pdf::loadView('penjualan.cetak_pdf', compact('penjualan'));
+        return $pdf->download('laporan_penjualan.pdf');
+    }
 }

@@ -27,7 +27,6 @@ class AuthController extends Controller
         $request->session()->regenerate(); // Regenerate session to prevent session fixation
         return redirect('dashboard')->with('success', 'Berhasil login');
     } else  {
-        // Redirect back to the login with an error message if login fails
         return redirect('/login')->with('failed', 'Username atau password salah');
     }
 }

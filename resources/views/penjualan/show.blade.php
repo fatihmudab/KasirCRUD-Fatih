@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Penjualan</h1>
+                    <h1><i class="fas fa-shopping-cart"></i> Penjualan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -16,7 +16,7 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
     <!-- Main content -->
@@ -24,38 +24,47 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card shadow">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="card-title"><i class="fas fa-table"></i> Daftar Penjualan</h3>
+                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px" class="text-center">No</th>
-                                        <th style="width: 10px" class="text-center">Nama Produk</th>
-                                        <th style="width: 10px" class="text-center">Jumlah Produk</th>
-                                        <th style="width: 30px" class="text-center">SubTotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($penjualan as $penjualan)
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $penjualan->produk->namaProduk }}</td>
-                                            <td class="text-center">{{ $penjualan->quantity }}</td>
-                                            <td class="text-center">
-                                                Rp.{{ number_format($penjualan->sub_total, 0, ',', '.') }}</td>
+                                            <th style="width: 10%" class="text-center">No</th>
+                                            <th style="width: 30%" class="text-center">Nama Produk</th>
+                                            <th style="width: 20%" class="text-center">Jumlah Produk</th>
+                                            <th style="width: 30%" class="text-center">SubTotal</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                            <div class="card-footer">
-                                <a href="{{ route('penjualan') }}" class="btn btn-sm btn-secondary"><i
-                                        class="fas fa-arrow-left"></i> Kembali</a>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($penjualan as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $item->produk->namaProduk }}</td>
+                                                <td class="text-center">{{ $item->quantity }}</td>
+                                                <td class="text-right">Rp.{{ number_format($item->sub_total, 0, ',', '.') }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                    </div><!-- /.container-fluid -->
+                        </div>
+                        <div class="card-footer">
+                            <a href="" class="btn btn-success btn-sm" target="_blank">
+                                <i class="{{route('cetak-pdf')}}"></i> Cetak PDF
+                            </a>
+                            <a href="{{ route('penjualan') }}" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    <!-- /.content -->
 
 @endsection
